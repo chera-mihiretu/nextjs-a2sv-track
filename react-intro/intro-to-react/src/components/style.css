@@ -1,0 +1,9 @@
+/* filepath: /home/chera/All/Projects/nextjs/a2sv-task-next/react-intro/intro-to-react/src/components/style.css */
+.square {
+    width: 100px; /* Set the desired width */
+    height: 100px; /* Set the desired height */
+    font-size: 40px; /* Adjust the font size as needed */
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+}
