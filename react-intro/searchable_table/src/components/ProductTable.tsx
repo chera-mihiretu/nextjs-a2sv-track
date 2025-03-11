@@ -5,17 +5,23 @@ import ProductRow from './ProductRow';
 
 interface Props {
   products: Product[]
+  inStock : boolean
+  filterText : string
 }
 
-const ProductTable = ({products} : Props) => {
+const ProductTable = ({products, inStock, filterText} : Props) => {
   let row : React.JSX.Element[] = [];
   let lastCatagory : string = '';
 
   products.sort((a, b) => a.category.localeCompare(b.category));
 
   products.forEach(element  => {
+    if (inStock && !element.stocked) 
+      return;
+    
+    if (element.name.toLowerCase().indexOf(filterText.toLowerCase()) === -1) 
+      return;
     if (lastCatagory !== element.category) {
-      console.log(element.category);
       row.push(<ProductCatagoryRow catagory={element.category} key={element.category}/>)
     }
     row.push(<ProductRow product={element} key={element.name}/>)
