@@ -20,12 +20,12 @@ function App() {
   });
 
   const nextPage = () => {
-
+    if (pageNumber === 3) return;
     setPageNumber((pageNumber + 1) % 4);
   }
 
   const prevPage = () => {
-    if (pageNumber === 0 || pageNumber === 3) {
+    if (pageNumber === 0) {
       return;
     }
     setPageNumber((pageNumber - 1) % 3);

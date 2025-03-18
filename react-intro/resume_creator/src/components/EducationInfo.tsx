@@ -1,17 +1,17 @@
 import ChangeOrder from "./PageChange"
 import {useForm} from "react-hook-form"
 import { EducationInformation } from "./UserData"
-import {validateUniversity, validateProfession} from "../logics/validate"
+import {validateUniversity, validateProfession, validateDescription} from "../logics/validate"
 const EducationInfo = ({nextPage,  prevPage,setUserData ,userData} : ChangeOrder) => {
-  const {register, handleSubmit} = useForm<EducationInformation>(
+  const {register, handleSubmit, formState : {errors}} = useForm<EducationInformation>(
     {
       defaultValues: userData.education_information
     }
   )
 
   const onSubmit = (data: EducationInformation) => {
-    if (setUserData) setUserData(data);
-    () => nextPage
+    setUserData && setUserData(data);
+    nextPage && nextPage();
   }
 
   return (
@@ -22,10 +22,18 @@ const EducationInfo = ({nextPage,  prevPage,setUserData ,userData} : ChangeOrder
           validate: validateUniversity
 
         })}/>
+        <span style={{color: "red"}}>{errors.university?.message?.toString()}</span>
+
         <input type="text" placeholder="Enter Your Field" {...register("field", {
           validate: validateProfession
         })}/>
-        <textarea name="" id="" placeholder="About The Campus" style={{height: "100px"}}></textarea>
+        <span style={{color: "red"}}>{errors.field?.message?.toString()}</span>
+
+        <textarea placeholder="About The Campus" style={{height: "100px"}} {...register("about", {
+          validate: validateDescription
+        })}></textarea>
+        <span style={{color: "red"}}>{errors.about?.message?.toString()}</span>
+
         <div className="btn-container">
 
             <button className="previous btn" onClick={prevPage}>Previous</button>

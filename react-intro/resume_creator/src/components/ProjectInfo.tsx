@@ -4,7 +4,7 @@ import { ProjectInformation } from "./UserData";
 import { validateDescription, validateOrganization, validateProfession } from "../logics/validate";
 
 const ExperienceInfo = ({nextPage,  prevPage, userData, setUserData} : ChangeOrder) => {
-  const {register, handleSubmit} = useForm<ProjectInformation>(
+  const {register, handleSubmit, formState : {errors}} = useForm<ProjectInformation>(
     {
       defaultValues: userData.project_information
     }
@@ -15,7 +15,7 @@ const ExperienceInfo = ({nextPage,  prevPage, userData, setUserData} : ChangeOrd
     const new_data = {...userData}
     new_data["project_information"] = data;
     if (setUserData) setUserData(data);
-    () => nextPage
+    nextPage &&  nextPage()
   }
   
   return (
@@ -25,16 +25,21 @@ const ExperienceInfo = ({nextPage,  prevPage, userData, setUserData} : ChangeOrd
         <input type="text" placeholder="Enter Project Name" {...register("project", {
           validate: validateOrganization
         })}/>
+        <span style={{color: "red"}}>{errors.project?.message?.toString()}</span>
+
         <input type="text" placeholder="Enter Your Role" {...register("role", {
           validate: validateProfession
         })}/>
+        <span style={{color: "red"}}>{errors.role?.message?.toString()}</span>
+
         <textarea placeholder="Enter About The Project" style={{height: "100px"}} {...register("about", {
           validate: validateDescription
         })}></textarea>
-        <div className="btn-container">
+        <span style={{color: "red"}}>{errors.about?.message?.toString()}</span>
 
-            <button className="previous btn" onClick={prevPage}>Previous</button>
-            <button type="submit" className="next btn" onClick={nextPage}>Next</button>
+        <div className="btn-container">
+          <button className="previous btn" onClick={prevPage}>Previous</button>
+          <button type="submit" className="next btn">Next</button>
         </div>
       </form>
     </div>
