@@ -13,7 +13,6 @@ const PersonalInfo = ({nextPage, setUserData, userData} : ChangeOrder ) => {
   )
   
     const onSubmit = (data: PersonalInformation) => {
-        // TODO : implement saving data
         if (setUserData) {
           setUserData(data);
         }

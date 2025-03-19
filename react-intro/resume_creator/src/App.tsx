@@ -5,6 +5,7 @@ import PersonalInfo from './components/PersonalInfo';
 import {useState} from 'react';
 import ProjectInfo from './components/ProjectInfo';
 import { EducationInformation, ExperienceInformation, PersonalInformation, ProjectInformation, UserData } from './components/UserData';
+import ResumePage from './components/ResumePage';
 
 
 
@@ -20,8 +21,8 @@ function App() {
   });
 
   const nextPage = () => {
-    if (pageNumber === 3) return;
-    setPageNumber((pageNumber + 1) % 4);
+    if (pageNumber === 4) return;
+    setPageNumber((pageNumber + 1) % 5);
   }
 
   const prevPage = () => {
@@ -77,6 +78,10 @@ function App() {
           <div>
             <ProjectInfo nextPage={nextPage} prevPage={prevPage} setUserData={setProjectInfo} userData={userData}/>
           </div>
+        )}
+
+        {pageNumber === 4 && (
+          <ResumePage userData={userData}/>
         )}
     </>
   )

@@ -2,6 +2,7 @@ import ChangeOrder from "./PageChange"
 import {useForm} from "react-hook-form"
 import { EducationInformation } from "./UserData"
 import {validateUniversity, validateProfession, validateDescription} from "../logics/validate"
+import { useEffect } from "react"
 const EducationInfo = ({nextPage,  prevPage,setUserData ,userData} : ChangeOrder) => {
   const {register, handleSubmit, formState : {errors}} = useForm<EducationInformation>(
     {
@@ -13,6 +14,17 @@ const EducationInfo = ({nextPage,  prevPage,setUserData ,userData} : ChangeOrder
     setUserData && setUserData(data);
     nextPage && nextPage();
   }
+
+  const handlePrevPage = () => {
+    if (Object.keys(errors).length > 0) {
+      const confirmLeave = window.confirm("You have validation errors. Are you sure you want to leave?");
+      if (!confirmLeave) return;
+    }
+    prevPage && prevPage();
+  }
+
+
+  
 
   return (
     <div>
@@ -36,7 +48,7 @@ const EducationInfo = ({nextPage,  prevPage,setUserData ,userData} : ChangeOrder
 
         <div className="btn-container">
 
-            <button className="previous btn" onClick={prevPage}>Previous</button>
+            <button className="previous btn" onClick={handlePrevPage}>Previous</button>
             <button type="submit" className="next btn">Next</button>
         </div>
       </form>
