@@ -1,5 +1,6 @@
 import './App.css'
 import { useState } from 'react';
+import CustomButton from './components/CustomButton';
 
 function App() {
   // You can change the initial heading and modified heading text as desired.
@@ -13,7 +14,7 @@ function App() {
 
   return (
     <div>
-      <button onClick={handleClick}>Click Me</button>
+      <CustomButton onClick={handleClick} />
       <h1>{heading}</h1>
     </div>
   );
